@@ -7,7 +7,9 @@ import java.util.function.Predicate;
 
 import org.springframework.stereotype.Component;
 
+import com.vcs.advancedRestApi.model.Name;
 import com.vcs.advancedRestApi.model.User;
+import com.vcs.advancedRestApi.model.UserV2;
 
 @Component
 public class UserDaoService {
@@ -41,6 +43,25 @@ public class UserDaoService {
 		
 		Predicate<? super User> predicate = user -> user.getId().equals(id);
 		users.removeIf(predicate);
+	}
+	
+	// Version-2	
+	private static List<UserV2> usersV2 = new ArrayList<UserV2>();
+	
+	private static int id2 = 0;
+	static {
+		usersV2.add(new UserV2(++id2, new Name("vcs", "vcs"), LocalDate.now().minusYears(9)));
+		usersV2.add(new UserV2(++id2, new Name("vivek", "vivek"), LocalDate.now().minusYears(28)));
+	}
+	
+	public List<UserV2> findAll2() {
+		return usersV2;
+	}
+	
+	public UserV2 findUserById2(int id2) {
+		
+		Predicate<? super UserV2> predicate = userV2 -> userV2.getId().equals(id2);
+		return usersV2.stream().filter(predicate).findFirst().orElse(null);
 	}
 	
 }

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.vcs.advancedRestApi.dao.UserDaoService;
 import com.vcs.advancedRestApi.exception.UserNotFoundException;
 import com.vcs.advancedRestApi.model.User;
+import com.vcs.advancedRestApi.model.UserV2;
 
 import jakarta.validation.Valid;
 
@@ -64,5 +65,24 @@ public class UserController {
 		
 		Locale locale = LocaleContextHolder.getLocale();
 		return messageSource.getMessage("good.morning.message", null, "Default Message", locale);
+	}
+	
+	// Version-2
+	
+	// Version by URL
+	@GetMapping("/v2/users")
+	public List<UserV2> getAllUsersV2() {
+		return service.findAll2();
+	}
+	
+	// version by Request-Parameter
+	@GetMapping(path = "/users/{id2}", params = "version=2" )
+	public UserV2 retrieveUserById2(@PathVariable int id2) {
+		
+		UserV2 userV2 = service.findUserById2(id2);
+		if ( userV2 == null )
+			throw new UserNotFoundException("id: " + id2);
+		
+		return userV2;
 	}
 }
