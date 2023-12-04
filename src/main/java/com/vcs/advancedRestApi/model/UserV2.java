@@ -16,6 +16,7 @@ public class UserV2 {
 	
 	private Integer id;
 	
+	@JsonProperty("user_name")
 	private Name name; 
 	
 	@Past(message = "Date of birth should be in the past.")

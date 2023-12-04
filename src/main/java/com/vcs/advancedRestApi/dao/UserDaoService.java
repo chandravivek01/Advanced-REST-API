@@ -64,4 +64,11 @@ public class UserDaoService {
 		return usersV2.stream().filter(predicate).findFirst().orElse(null);
 	}
 	
+	public UserV2 save2(UserV2 userV2) {
+		
+		userV2.setId(++id2);
+		usersV2.add(userV2);
+		return userV2;
+	}
+	
 }
