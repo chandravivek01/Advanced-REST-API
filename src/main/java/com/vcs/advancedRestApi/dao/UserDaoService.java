@@ -30,4 +30,11 @@ public class UserDaoService {
 		return users.stream().filter(predicate).findFirst().orElse(null);
 	}
 	
+	public User save(User user) {
+		
+		user.setId(++id);
+		users.add(user);
+		return user;
+	}
+	
 }
