@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class User {
 	
-	private int id;
+	private Integer id;
 	
 	@JsonProperty("user_name")
 	private String name;
