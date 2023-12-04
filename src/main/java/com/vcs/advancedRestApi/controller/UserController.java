@@ -2,8 +2,11 @@ package com.vcs.advancedRestApi.controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +24,9 @@ import jakarta.validation.Valid;
 
 @RestController
 public class UserController {
+	
+	@Autowired
+	private MessageSource messageSource;
 	
 	@Autowired
 	private UserDaoService service;
@@ -51,5 +57,12 @@ public class UserController {
 	@DeleteMapping("/users/{id}")
 	public void deleteUser(@PathVariable int id) {
 		service.deleteUserById(id);
+	}
+	
+	@GetMapping("/users/message")
+	public String greet() {
+		
+		Locale locale = LocaleContextHolder.getLocale();
+		return messageSource.getMessage("good.morning.message", null, "Default Message", locale);
 	}
 }
