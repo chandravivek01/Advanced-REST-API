@@ -22,7 +22,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.vcs.advancedRestApi.dao.UserDaoService;
 import com.vcs.advancedRestApi.exception.UserNotFoundException;
-import com.vcs.advancedRestApi.model.User;
+import com.vcs.advancedRestApi.model.User1;
 import com.vcs.advancedRestApi.model.UserV2;
 
 import jakarta.validation.Valid;
@@ -37,27 +37,27 @@ public class UserController {
 	private UserDaoService service;
 	
 	@GetMapping("/users")
-	public List<User> getAllUsers() {
+	public List<User1> getAllUsers() {
 		return service.findAll();
 	}
 	
 	@GetMapping("/users/{id}")
-	public EntityModel<User> retrieveUserById(@PathVariable int id ) {
+	public EntityModel<User1> retrieveUserById(@PathVariable int id ) {
 		
-		User user = service.findUserById(id);
+		User1 user = service.findUserById(id);
 		if ( user == null )
 			throw new UserNotFoundException("id: " + id);
 		
-		EntityModel<User> entityModel = EntityModel.of(user);
+		EntityModel<User1> entityModel = EntityModel.of(user);
 		WebMvcLinkBuilder link = linkTo(methodOn(this.getClass()).getAllUsers());
 		entityModel.add(link.withRel("all-users"));
 		return entityModel;
 	}
 	
 	@PostMapping("/users")
-	public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
+	public ResponseEntity<User1> createUser(@Valid @RequestBody User1 user) {
 		
-		User savedUser = service.save(user);
+		User1 savedUser = service.save(user);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedUser.getId()).toUri();
 		return ResponseEntity.created(location ).build();
 	}

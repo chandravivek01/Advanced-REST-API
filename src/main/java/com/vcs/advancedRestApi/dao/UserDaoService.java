@@ -8,31 +8,31 @@ import java.util.function.Predicate;
 import org.springframework.stereotype.Component;
 
 import com.vcs.advancedRestApi.model.Name;
-import com.vcs.advancedRestApi.model.User;
+import com.vcs.advancedRestApi.model.User1;
 import com.vcs.advancedRestApi.model.UserV2;
 
 @Component
 public class UserDaoService {
 	
-	private static List<User> users = new ArrayList<User>();
+	private static List<User1> users = new ArrayList<User1>();
 	
 	private static int id = 0;
 	static {
-		users.add(new User(++id, "vcs", LocalDate.now().minusYears(9)));
-		users.add(new User(++id, "vivek", LocalDate.now().minusYears(28)));
+		users.add(new User1(++id, "vcs", LocalDate.now().minusYears(9)));
+		users.add(new User1(++id, "vivek", LocalDate.now().minusYears(28)));
 	}
 	
-	public List<User> findAll() {
+	public List<User1> findAll() {
 		return users;
 	}
 	
-	public User findUserById(int id) {
+	public User1 findUserById(int id) {
 		
-		Predicate<? super User> predicate = user -> user.getId().equals(id);
+		Predicate<? super User1> predicate = user -> user.getId().equals(id);
 		return users.stream().filter(predicate).findFirst().orElse(null);
 	}
 	
-	public User save(User user) {
+	public User1 save(User1 user) {
 		
 		user.setId(++id);
 		users.add(user);
@@ -41,7 +41,7 @@ public class UserDaoService {
 	
 	public void deleteUserById(int id) {
 		
-		Predicate<? super User> predicate = user -> user.getId().equals(id);
+		Predicate<? super User1> predicate = user -> user.getId().equals(id);
 		users.removeIf(predicate);
 	}
 	
